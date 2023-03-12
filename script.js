@@ -77,14 +77,14 @@
 // console.dir(document);
 // Examine the document object
 
-var headerTitle = document.getElementById("header-title");
+// var headerTitle = document.getElementById("header-title");
 // console.log(headerTitle);
 // console.log(headerTitle.textContent);
 // console.log(headerTitle.innerText);
 
 // headerTitle.innerHTML = "<h3>Hello</h3>";
-var header = document.getElementById("main-header");
-header.style.borderBottom = "solid 3px #000";
+// var header = document.getElementById("main-header");
+// header.style.borderBottom = "solid 3px #000";
 
 // var addItem = document.getElementsByClassName("list-group-item");
 // var addItem = document.getElementsByClassName("title");
@@ -93,10 +93,20 @@ header.style.borderBottom = "solid 3px #000";
 // addItem[0].style.fontWeight = "bold";
 // addItem[0].style.color = "green";
 
-var items = document.getElementsByClassName("list-group-item");
+// var items = document.getElementsByClassName("list-group-item");
 
-items[2].style.backgroundColor = "green";
+// items[2].style.backgroundColor = "green";
 
-for (let i = 0; i < items.length; i++) {
-  items[i].style.fontWeight = "bold";
+// for (let i = 0; i < items.length; i++) {
+//   items[i].style.fontWeight = "bold";
+// }
+
+// getElementByTagName
+
+const li = document.getElementsByTagName("li");
+li[1].textContent = "Hello 2";
+li[1].style.backgroundColor = "yellow";
+
+for (let i = 0; i < li.length; i++) {
+  li[i].style.fontWeight = "bold";
 }
