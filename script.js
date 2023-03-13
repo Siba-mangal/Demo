@@ -1,68 +1,79 @@
-//FINAL CODE
+const form = document.getElementById("addForm");
+const itemList = document.getElementById("items");
+const filter = document.getElementById("filter");
 
-// parentElement;
-const itemList = document.querySelector("#items");
-// console.log(itemList.parentElement);
-// itemList.parentElement.style.backgroundColor = "lightgreen";
-// console.log(itemList.parentElement.parentElement);
+const liList = document.querySelectorAll(".list-group-item");
 
-//childNode
-// console.log(itemList.childNodes);
+for (let i = 0; i < liList.length; i++) {
+  const editButton = document.createElement("button");
+  editButton.className = "btn btn-primary btn-sm float-right edit-btn";
+  editButton.appendChild(document.createTextNode("edit"));
+  liList[i].appendChild(editButton);
+}
 
-// lastelementchild;
-// console.log(itemList.lastElementChild);
+form.addEventListener("submit", addItem);
+//delete itemList
 
-// lastchild;
-// console.log(itemList.lastChild);
+itemList.addEventListener("click", removeItem);
 
-// childNode.createChildNode.innerHTML = "HELLO";
+filter.addEventListener("keyup", filterItems);
 
-// firstelementchild;
-// console.log(itemList.firstElementChild);
+function addItem(e) {
+  e.preventDefault();
 
-// firstchild;
-// console.log(itemList.firstChild);
+  const newItem = document.getElementById("item").value;
 
-// nextsibling;
-// console.log(itemList.nextSibling);
-// nextelementsibling;
-// console.log(itemList.nextElementSibling);
+  //create a new li element
 
-// previoussibling;
-// console.log(itemList.previousSibling);
+  const li = document.createElement("li");
+  //add class
+  li.className = "list-group-item";
+  //add test node with input value
 
-// previouselementsibling;
-// console.log(itemList.previousElementSibling);
+  li.appendChild(document.createTextNode(newItem));
 
-// createelement;
-const newDiv = document.createElement("div");
-newDiv.className = "hello"; //add class
-newDiv.id = "hello1"; //add id
-newDiv.setAttribute("title", "Hello Div"); //set Atribute
+  // create delete button element
+  const deleteBtn = document.createElement("button");
+  // add class
+  deleteBtn.className = "btn btn-danger btn-sm float-right delete-btn";
+  deleteBtn.appendChild(document.createTextNode("X"));
 
-const newDivText = document.createTextNode("Hello World"); // createtesxtnode;
+  //append btn to li
+  li.appendChild(deleteBtn);
 
-newDiv.appendChild(newDivText); // appendchild;
+  const editButton = document.createElement("button");
+  editButton.className = "btn btn-primary btn-sm float-right edit-btn";
+  editButton.appendChild(document.createTextNode("edit"));
+  li.appendChild(editButton);
 
-const container = document.querySelector("header .container");
+  itemList.appendChild(li);
+  itemList.appendChild(li);
+}
 
-const h1 = document.querySelector("header h1");
+//remove item
 
-container.insertBefore(newDiv, h1);
+function removeItem(e) {
+  if (e.target.classList.contains("delete")) {
+    if (confirm("Are you sure you want to delete")) {
+      const li = e.target.parentElement;
+      itemList.removeChild(li);
+    }
+  }
+}
 
-//insert before li
+function filterItems(e) {
+  // convert text to lowercase
+  const text = e.target.value.toLowerCase();
+  //get list of items
+  const items = itemList.getElementsByTagName("li");
+  //convert to array
+  Array.from(items).forEach(function (item) {
+    const itemName = item.firstChild.textContent;
 
-const newLi = document.createElement("li");
-newLi.className = "list-group-item";
-
-const newLiText = document.createTextNode("Hello world");
-
-newLi.appendChild(newLiText);
-
-const container2 = document.querySelector("#items");
-const h2 = document.createElement("li");
-
-const pos = container2.firstElementChild;
-container2.insertBefore(newLi, pos);
-
-console.log(newDiv);
+    if (itemName.toLowerCase().indexOf(text) != -1) {
+      item.style.display = "block";
+    } else {
+      item.style.display = "none";
+    }
+  });
+}
