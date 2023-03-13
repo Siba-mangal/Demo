@@ -22,6 +22,8 @@ function addItem(e) {
   e.preventDefault();
 
   const newItem = document.getElementById("item").value;
+  const newItem_new = document.getElementById("item2").value;
+  const new_Item = newItem + " " + newItem_new;
 
   //create a new li element
 
@@ -30,7 +32,7 @@ function addItem(e) {
   li.className = "list-group-item";
   //add test node with input value
 
-  li.appendChild(document.createTextNode(newItem));
+  li.appendChild(document.createTextNode(new_Item));
 
   // create delete button element
   const deleteBtn = document.createElement("button");
