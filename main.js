@@ -12,6 +12,8 @@ const userList = document.querySelector("#users");
 
 userList.addEventListener("click", removeItem);
 
+userList.addEventListener("click", editItem);
+
 myForm.addEventListener("submit", onSubmit);
 let myObj = {
   name: "",
@@ -58,20 +60,19 @@ function onSubmit(e) {
 
     userList.appendChild(li);
 
-    // let delete_btn = document.createElement("button");
-    // delete_btn.setAttribute("id", "delete-btn");
-    // delete_btn.innerText = "Delete";
-    // delete_btn.appendChild(document.createTextNode("X"));
-    // let del = li.appendChild(document.createElement('button'));
-    // del.innerHTML =
-    // li.appendChild(delete_btn);
     const deleteBtn = document.createElement("button");
     // add class
     deleteBtn.className = "btn btn-danger btn-sm float-right delete-btn delete";
     deleteBtn.appendChild(document.createTextNode("X"));
 
+    const editBtn = document.createElement("button");
+
+    editBtn.className = "btn btn-danger btn-sm float-right delete-btn edit";
+    editBtn.appendChild(document.createTextNode("Edit"));
+
     //append btn to li
     li.appendChild(deleteBtn);
+    li.appendChild(editBtn);
 
     // Clear fields
     nameInput.value = "";
@@ -87,11 +88,26 @@ function removeItem(e) {
       // console.log(li.innerHTML);
       userList.removeChild(li);
       // localStorage.removeItem(e.target.innerHTML.spit);
-
       localStorage.removeItem(
         li.innerHTML.split(":")[1].split(" ").slice(-1)[0]
       );
     }
+  }
+}
+
+// Edit button
+
+function editItem(e) {
+  if (e.target.classList.contains("edit")) {
+    const li = e.target.parentElement;
+    // console.log(li.innerHTML);
+    userList.removeChild(li);
+    // localStorage.removeItem(e.target.innerHTML.spit);
+
+    localStorage.removeItem(li.innerHTML.split(":")[1].split(" ").slice(-1)[0]);
+    nameInput.value = myObj.name;
+    emailInput.value = myObj.email;
+    phoneNumber.value = myObj.phone;
   }
 }
 // save in local storage in objects
