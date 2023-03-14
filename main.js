@@ -10,15 +10,14 @@ const userList = document.querySelector("#users");
 
 // Listen for form submit
 
+userList.addEventListener("click", removeItem);
+
+myForm.addEventListener("submit", onSubmit);
 let myObj = {
   name: "",
   email: "",
   phone: "",
 };
-// let array = [];
-
-myForm.addEventListener("submit", onSubmit);
-
 function onSubmit(e) {
   e.preventDefault();
 
@@ -34,6 +33,7 @@ function onSubmit(e) {
     setTimeout(() => msg.remove(), 3000);
   } else {
     const li = document.createElement("li");
+    li.className = "item";
 
     // localStorage.setItem("nameInput", nameInput.value);
     // localStorage.setItem("emailInput", emailInput.value);
@@ -58,6 +58,21 @@ function onSubmit(e) {
 
     userList.appendChild(li);
 
+    // let delete_btn = document.createElement("button");
+    // delete_btn.setAttribute("id", "delete-btn");
+    // delete_btn.innerText = "Delete";
+    // delete_btn.appendChild(document.createTextNode("X"));
+    // let del = li.appendChild(document.createElement('button'));
+    // del.innerHTML =
+    // li.appendChild(delete_btn);
+    const deleteBtn = document.createElement("button");
+    // add class
+    deleteBtn.className = "btn btn-danger btn-sm float-right delete-btn delete";
+    deleteBtn.appendChild(document.createTextNode("X"));
+
+    //append btn to li
+    li.appendChild(deleteBtn);
+
     // Clear fields
     nameInput.value = "";
     emailInput.value = "";
@@ -65,4 +80,18 @@ function onSubmit(e) {
   }
 }
 
+function removeItem(e) {
+  if (e.target.classList.contains("delete")) {
+    if (confirm("Are you sure you want to delete")) {
+      const li = e.target.parentElement;
+      // console.log(li.innerHTML);
+      userList.removeChild(li);
+      // localStorage.removeItem(e.target.innerHTML.spit);
+
+      localStorage.removeItem(
+        li.innerHTML.split(":")[1].split(" ").slice(-1)[0]
+      );
+    }
+  }
+}
 // save in local storage in objects
